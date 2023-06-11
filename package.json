@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "pnpm --filter 'plasticine-hooks' dev",
     "build": "pnpm --filter 'plasticine-hooks' build",
-    "dev:docs": "pnpm --filter 'plasticine-hooks-docs' storybook",
-    "build:docs": "pnpm --filter 'plasticine-hooks-docs' build-storybook",
+    "dev:docs": "pnpm --filter 'plasticine-hooks-docs' dev",
+    "build:docs": "pnpm --filter 'plasticine-hooks-docs' build",
     "commit": "cz",
     "test": "jest",
     "update-pkgs": "taze -wi",
