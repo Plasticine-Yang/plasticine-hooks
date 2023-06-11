@@ -4,8 +4,10 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "pnpm --filter './packages/**' --parallel dev",
-    "build": "pnpm --filter './packages/**' --parallel build",
+    "dev": "pnpm --filter 'plasticine-hooks' dev",
+    "build": "pnpm --filter 'plasticine-hooks' build",
+    "dev:docs": "pnpm --filter 'plasticine-hooks-docs' storybook",
+    "build:docs": "pnpm --filter 'plasticine-hooks-docs' build-storybook",
     "commit": "cz",
     "test": "jest",
     "update-pkgs": "taze -wi",
