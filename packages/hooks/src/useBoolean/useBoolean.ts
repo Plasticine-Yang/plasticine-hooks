@@ -15,6 +15,7 @@ export interface UseBooleanActions {
 }
 
 /**
+ * 优雅地管理 boolean 状态
  *
  * @param defaultValue 默认 false
  */
