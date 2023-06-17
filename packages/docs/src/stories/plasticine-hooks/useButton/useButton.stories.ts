@@ -5,13 +5,10 @@ import Demo from './Demo'
 const meta = {
   title: 'Plasticine Hooks/useButton',
   component: Demo,
-  tags: ['autodocs'],
 } satisfies Meta<typeof Demo>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
-export const DefaultTrue: Story = {
-  name: 'Default value with true',
-}
+export const Default: Story = {}

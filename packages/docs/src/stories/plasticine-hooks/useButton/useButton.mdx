@@ -1,3 +1,20 @@
+import { Canvas, Meta, Source } from '@storybook/blocks'
+
+import * as UseButtonStories from './useButton.stories.ts'
+
+<Meta of={UseButtonStories} />
+
+# useButton
+
+优雅地管理 boolean 状态的 hook。
+
+## 代码演示
+
+### 基础用法
+
+<Canvas of={UseButtonStories.Default} />
+
+```tsx
 import { Box, Button, Stack } from '@mui/material'
 import { FC, useCallback } from 'react'
 
@@ -36,3 +53,12 @@ const Demo: FC = () => {
 }
 
 export default Demo
+```
+
+## API
+
+### 类型定义
+
+```ts
+useBoolean(defaultValue?: boolean): [boolean, UseBooleanActions]
+```
