@@ -2,11 +2,11 @@ import { act, renderHook } from '@testing-library/react'
 
 import { useBoolean } from '../useBoolean'
 
-const setUp = (defaultValue?: boolean) => renderHook(() => useBoolean(defaultValue))
+const setup = (defaultValue?: boolean) => renderHook(() => useBoolean(defaultValue))
 
 describe('useBoolean', () => {
   test('actions: toggle', () => {
-    const { result } = setUp()
+    const { result } = setup()
 
     expect(result.current[0]).toBe(false)
 
@@ -23,7 +23,7 @@ describe('useBoolean', () => {
   })
 
   test('actions: setTrue', () => {
-    const { result } = setUp()
+    const { result } = setup()
 
     expect(result.current[0]).toBe(false)
 
@@ -34,7 +34,7 @@ describe('useBoolean', () => {
   })
 
   test('actions: setFalse', () => {
-    const { result } = setUp()
+    const { result } = setup()
 
     expect(result.current[0]).toBe(false)
 
@@ -45,7 +45,7 @@ describe('useBoolean', () => {
   })
 
   test('actions: set', () => {
-    const { result } = setUp()
+    const { result } = setup()
 
     expect(result.current[0]).toBe(false)
 
@@ -63,10 +63,10 @@ describe('useBoolean', () => {
   })
 
   test('test on default value', () => {
-    const { result: result1 } = setUp()
+    const { result: result1 } = setup()
     expect(result1.current[0]).toBe(false)
 
-    const { result: result2 } = setUp(true)
+    const { result: result2 } = setup(true)
     expect(result2.current[0]).toBe(true)
   })
 })
