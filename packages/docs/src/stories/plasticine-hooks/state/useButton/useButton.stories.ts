@@ -3,7 +3,7 @@ import Demo from './Demo'
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta = {
-  title: 'Plasticine Hooks/useButton',
+  title: 'Plasticine Hooks/State/useButton',
   component: Demo,
 } satisfies Meta<typeof Demo>
 
