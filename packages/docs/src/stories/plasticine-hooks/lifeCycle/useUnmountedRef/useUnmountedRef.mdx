@@ -1,0 +1,60 @@
+import { Canvas, Meta, Source } from '@storybook/blocks'
+
+import * as UseUnmountedRef from './useUnmountedRef.stories.ts'
+
+<Meta of={UseUnmountedRef} />
+
+# useUnmountedRef
+
+获取当前组件是否已经被卸载，常用于在异步任务中需要感知组件卸载后不进行后续操作的场景
+
+## 代码演示
+
+### 基础用法
+
+<Canvas of={UseUnmountedRef.Default} />
+
+```tsx
+import { Box, Button } from '@mui/material'
+import { FC, useEffect } from 'react'
+
+import { useBoolean, useUnmountedRef } from 'plasticine-hooks'
+
+const Foo: FC = () => {
+  const unmountedRef = useUnmountedRef()
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (!unmountedRef.current) {
+        alert('not unmounted~')
+      }
+    }, 3000)
+  }, [unmountedRef])
+
+  return <Box>Foo</Box>
+}
+
+const Demo: FC = () => {
+  const [mounted, { toggle }] = useBoolean(false)
+
+  return (
+    <Box>
+      <Button variant="contained" onClick={toggle}>
+        {mounted ? 'unmount' : 'mount'}
+      </Button>
+
+      {mounted && <Foo />}
+    </Box>
+  )
+}
+
+export default Demo
+```
+
+## API
+
+### 类型定义
+
+```ts
+useUnmountedRef(): React.MutableRefObject<boolean>
+```
