@@ -1,6 +1,9 @@
 import { Canvas, Meta, Source } from '@storybook/blocks'
 
+import { ApiTable } from '@/components'
+
 import * as UseUnmountedRef from './useUnmountedRef.stories.ts'
+import { apiResultMeta } from './apiMeta.ts'
 
 <Meta of={UseUnmountedRef} />
 
@@ -58,3 +61,7 @@ export default Demo
 ```ts
 useUnmountedRef(): React.MutableRefObject<boolean>
 ```
+
+### 返回值
+
+<ApiTable rows={apiResultMeta} />
