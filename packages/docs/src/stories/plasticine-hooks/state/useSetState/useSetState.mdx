@@ -1,0 +1,78 @@
+import { Canvas, Meta, Source } from '@storybook/blocks'
+
+import { ApiTable } from '@/components'
+
+import * as UseSetStateStories from './useSetState.stories.ts'
+import { apiParamsMeta, apiResultMeta } from './apiMeta.ts'
+
+<Meta of={UseSetStateStories} />
+
+# useSetState
+
+管理 object 类型 state，用法与类组件的 `this.setState` 基本一致
+
+## 代码演示
+
+### 基础用法
+
+<Canvas of={UseSetStateStories.Default} />
+
+```tsx
+import { Box, Button, Divider, Input, Stack } from '@mui/material'
+import { FC } from 'react'
+
+import { useSetState } from 'plasticine-hooks'
+
+interface DemoState {
+  foo: string
+  count: number
+}
+
+const Demo: FC = () => {
+  const [state, setState] = useSetState<DemoState>({ foo: 'hello', count: 0 })
+
+  return (
+    <Box>
+      <Stack direction="column" spacing={2}>
+        <p>foo: {state.foo}</p>
+
+        <Input value={state.foo} onChange={(e) => setState({ foo: e.target.value })} />
+      </Stack>
+
+      <Divider />
+
+      <Stack direction="column" spacing={2}>
+        <p>count: {state.count}</p>
+
+        <Button variant="contained" onClick={() => setState((prevState) => ({ count: prevState.count + 1 }))}>
+          add
+        </Button>
+      </Stack>
+    </Box>
+  )
+}
+
+export default Demo
+```
+
+## API
+
+### 类型定义
+
+```ts
+useSetState<State extends Record<PropertyKey, any>>(initialState: State): [State, SetStateWithMergeFn<State>]
+
+type SetStateWithMergeFn<State extends Record<PropertyKey, any>> = (
+  nextStateOrUpdateFn: Partial<State> | SetStateUpdateFn<State>,
+) => void
+
+type SetStateUpdateFn<State extends Record<PropertyKey, any>> = (prevState: State) => Partial<State>
+```
+
+### 参数
+
+<ApiTable rows={apiParamsMeta} />
+
+### 返回值
+
+<ApiTable rows={apiResultMeta} />
