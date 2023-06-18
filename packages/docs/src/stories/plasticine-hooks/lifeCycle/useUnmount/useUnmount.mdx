@@ -1,6 +1,9 @@
 import { Canvas, Meta, Source } from '@storybook/blocks'
 
+import { ApiTable } from '@/components'
+
 import * as UseUnmountStories from './useUnmount.stories.ts'
+import { apiParamsMeta } from './apiMeta.ts'
 
 <Meta of={UseUnmountStories} />
 
@@ -52,3 +55,7 @@ export default Demo
 ```ts
 useUnmount(callback: () => void): void
 ```
+
+### 参数
+
+<ApiTable rows={apiParamsMeta} />
