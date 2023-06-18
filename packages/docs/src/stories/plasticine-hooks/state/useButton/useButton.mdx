@@ -1,6 +1,9 @@
 import { Canvas, Meta, Source } from '@storybook/blocks'
 
+import { ApiTable } from '@/components'
+
 import * as UseButtonStories from './useButton.stories.ts'
+import { apiParamsMeta, apiResultMeta, apiUseBooleanActionsMeta } from './apiMeta.ts'
 
 <Meta of={UseButtonStories} />
 
@@ -62,3 +65,17 @@ export default Demo
 ```ts
 useBoolean(defaultValue?: boolean): [boolean, UseBooleanActions]
 ```
+
+### 参数
+
+<ApiTable rows={apiParamsMeta} />
+
+### 返回值
+
+<ApiTable rows={apiResultMeta} />
+
+### 相关类型
+
+#### UseBooleanActions
+
+<ApiTable rows={apiUseBooleanActionsMeta} />
