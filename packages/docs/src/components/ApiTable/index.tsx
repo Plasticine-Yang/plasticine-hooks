@@ -33,19 +33,21 @@ export const ApiTable: FC<ApiTableProps> = memo((props) => {
             return (
               <TableRow>
                 <TableCell>
-                  <RowTag content={row.name} />
+                  <RowTag>{row.name}</RowTag>
                 </TableCell>
 
                 <TableCell>
-                  <RowTag content={row.description} />
+                  <RowTag>{row.description}</RowTag>
                 </TableCell>
 
                 <TableCell>
-                  <RowTag content={row.type} />
+                  <RowTag>
+                    <code>{row.type}</code>
+                  </RowTag>
                 </TableCell>
 
                 <TableCell>
-                  <RowTag content={row.defaultValue} />
+                  <RowTag>{row.defaultValue}</RowTag>
                 </TableCell>
               </TableRow>
             )

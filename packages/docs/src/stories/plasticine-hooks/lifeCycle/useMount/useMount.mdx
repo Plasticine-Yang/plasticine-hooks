@@ -1,6 +1,9 @@
 import { Canvas, Meta, Source } from '@storybook/blocks'
 
+import { ApiTable } from '@/components'
+
 import * as UseMountStories from './useMount.stories.ts'
+import { apiParamsMeta } from './apiMeta.ts'
 
 <Meta of={UseMountStories} />
 
@@ -52,3 +55,7 @@ export default Demo
 ```ts
 useMount(callback: () => void): void
 ```
+
+### 参数
+
+<ApiTable rows={apiParamsMeta} />

@@ -1,16 +1,15 @@
 import { Chip } from '@mui/material'
-import { memo, useMemo, type FC } from 'react'
+import { memo, useMemo, type FC, PropsWithChildren } from 'react'
 
 const DEFAULT_CONTENT = '--'
 
-interface RowTagProps {
-  content?: string
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface RowTagProps {}
 
-const RowTag: FC<RowTagProps> = memo((props) => {
-  const { content } = props
+const RowTag: FC<PropsWithChildren<RowTagProps>> = memo((props) => {
+  const { children } = props
 
-  const label = useMemo(() => content || DEFAULT_CONTENT, [content])
+  const label = useMemo(() => children || DEFAULT_CONTENT, [children])
 
   return <Chip label={label} variant="outlined" color="primary" size="small" />
 })
