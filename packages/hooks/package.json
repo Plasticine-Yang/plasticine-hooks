@@ -8,11 +8,45 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "package.json"
+  ],
   "exports": {
     ".": {
       "require": "./dist/index.cjs",
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
+    },
+    "./useMount": {
+      "require": "./dist/useMount/index.cjs",
+      "import": "./dist/useMount/index.js",
+      "types": "./dist/useMount/index.d.ts"
+    },
+    "./useUnmount": {
+      "require": "./dist/useUnmount/index.cjs",
+      "import": "./dist/useUnmount/index.js",
+      "types": "./dist/useUnmount/index.d.ts"
+    },
+    "./useUnmountedRef": {
+      "require": "./dist/useUnmountedRef/index.cjs",
+      "import": "./dist/useUnmountedRef/index.js",
+      "types": "./dist/useUnmountedRef/index.d.ts"
+    },
+    "./useSetState": {
+      "require": "./dist/useSetState/index.cjs",
+      "import": "./dist/useSetState/index.js",
+      "types": "./dist/useSetState/index.d.ts"
+    },
+    "./useToggle": {
+      "require": "./dist/useToggle/index.cjs",
+      "import": "./dist/useToggle/index.js",
+      "types": "./dist/useToggle/index.d.ts"
+    },
+    "./useBoolean": {
+      "require": "./dist/useBoolean/index.cjs",
+      "import": "./dist/useBoolean/index.js",
+      "types": "./dist/useBoolean/index.d.ts"
     }
   },
   "keywords": [
@@ -21,11 +55,12 @@
   ],
   "scripts": {
     "dev": "tsup --watch",
-    "build": "tsup --dts --minify"
+    "build": "tsup --dts --minify --sourcemap"
   },
   "devDependencies": {
     "@types/react": "^18.2.10",
-    "@types/react-dom": "^18.2.4"
+    "@types/react-dom": "^18.2.4",
+    "fast-glob": "^3.2.12"
   },
   "peerDependencies": {
     "react": "^18.2.0",
