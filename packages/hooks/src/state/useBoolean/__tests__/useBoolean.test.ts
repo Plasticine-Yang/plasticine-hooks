@@ -2,71 +2,52 @@ import { act, renderHook } from '@testing-library/react'
 
 import { useBoolean } from '../useBoolean'
 
-const setup = (defaultValue?: boolean) => renderHook(() => useBoolean(defaultValue))
+const setup = (defaultValue?: boolean) =>
+  renderHook(() => {
+    const [state, { toggle, setTrue, setFalse }] = useBoolean(defaultValue)
+
+    return {
+      state,
+      toggle,
+      setTrue,
+      setFalse,
+    }
+  })
 
 describe('useBoolean', () => {
-  test('actions: toggle', () => {
+  test('should default state be false', () => {
     const { result } = setup()
-
-    expect(result.current[0]).toBe(false)
-
-    act(() => {
-      result.current[1].toggle()
-    })
-    expect(result.current[0]).toBe(true)
-
-    act(() => {
-      result.current[1].toggle()
-    })
-
-    expect(result.current[0]).toBe(false)
+    expect(result.current.state).toBe(false)
   })
 
-  test('actions: setTrue', () => {
+  test('should setTrue and setFalse work', () => {
     const { result } = setup()
 
-    expect(result.current[0]).toBe(false)
+    act(() => {
+      result.current.setTrue()
+    })
+    expect(result.current.state).toBe(true)
 
     act(() => {
-      result.current[1].setTrue()
+      result.current.setFalse()
     })
-    expect(result.current[0]).toBe(true)
+    expect(result.current.state).toBe(false)
   })
 
-  test('actions: setFalse', () => {
+  test('should toggle between false and true', () => {
     const { result } = setup()
 
-    expect(result.current[0]).toBe(false)
+    expect(result.current.state).toBe(false)
 
     act(() => {
-      result.current[1].setFalse()
+      result.current.toggle()
     })
-    expect(result.current[0]).toBe(false)
-  })
+    expect(result.current.state).toBe(true)
 
-  test('actions: set', () => {
-    const { result } = setup()
-
-    expect(result.current[0]).toBe(false)
-
-    // set to true
     act(() => {
-      result.current[1].set(true)
+      result.current.toggle()
     })
-    expect(result.current[0]).toBe(true)
 
-    // set to false
-    act(() => {
-      result.current[1].set(false)
-    })
-    expect(result.current[0]).toBe(false)
-  })
-
-  test('test on default value', () => {
-    const { result: result1 } = setup()
-    expect(result1.current[0]).toBe(false)
-
-    const { result: result2 } = setup(true)
-    expect(result2.current[0]).toBe(true)
+    expect(result.current.state).toBe(false)
   })
 })
