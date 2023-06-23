@@ -52,6 +52,11 @@
       "require": "./dist/useDebouncedFn/index.cjs",
       "import": "./dist/useDebouncedFn/index.js",
       "types": "./dist/useDebouncedFn/index.d.ts"
+    },
+    "./useDebouncedState": {
+      "require": "./dist/useDebouncedState/index.cjs",
+      "import": "./dist/useDebouncedState/index.js",
+      "types": "./dist/useDebouncedState/index.d.ts"
     }
   },
   "keywords": [
