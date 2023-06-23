@@ -47,6 +47,11 @@
       "require": "./dist/useBoolean/index.cjs",
       "import": "./dist/useBoolean/index.js",
       "types": "./dist/useBoolean/index.d.ts"
+    },
+    "./useDebouncedFn": {
+      "require": "./dist/useDebouncedFn/index.cjs",
+      "import": "./dist/useDebouncedFn/index.js",
+      "types": "./dist/useDebouncedFn/index.d.ts"
     }
   },
   "keywords": [
@@ -58,6 +63,7 @@
     "build": "tsup --dts --minify --sourcemap"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.195",
     "@types/react": "^18.2.10",
     "@types/react-dom": "^18.2.4",
     "fast-glob": "^3.2.12"
@@ -65,5 +71,8 @@
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
   }
 }
