@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react'
 
-import { useSetState } from '../useSetState'
+import { useSetState } from '..'
 
 describe('useSetState', () => {
   const setup = <T extends Record<PropertyKey, any>>(initialValue: T) =>

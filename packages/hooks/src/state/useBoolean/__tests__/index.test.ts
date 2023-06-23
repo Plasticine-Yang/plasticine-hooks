@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react'
 
-import { useBoolean } from '../useBoolean'
+import { useBoolean } from '..'
 
 const setup = (defaultValue?: boolean) =>
   renderHook(() => {

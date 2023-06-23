@@ -1,5 +1,3 @@
-// export * from './useDebouncedFn'
-
 import type { DebounceSettings } from 'lodash'
 import debounce from 'lodash/debounce'
 import { useMemo, useRef } from 'react'

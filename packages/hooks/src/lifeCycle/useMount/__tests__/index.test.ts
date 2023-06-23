@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react'
 
-import { useMount } from '../useMount'
+import { useMount } from '..'
 
 const setup = (callback: () => void) =>
   renderHook(() => {

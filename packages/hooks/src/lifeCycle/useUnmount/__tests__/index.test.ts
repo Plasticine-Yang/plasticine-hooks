@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react'
 
-import { useUnmount } from '../useUnmount'
+import { useUnmount } from '..'
 
 describe('useUnmount', () => {
   const setup = (callback: () => void) =>
