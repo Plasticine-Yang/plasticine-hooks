@@ -1,17 +1,11 @@
-import type { DebounceSettings } from 'lodash'
 import debounce from 'lodash/debounce'
 import { useMemo, useRef } from 'react'
 
+import { type DebounceOptions, resolveDebounceOptions } from '../../shared'
+
 type AnyFn = (...args: any[]) => any
 
-type UseDebouncedFnOptions = DebounceSettings & {
-  /**
-   * 防抖的时间间隔
-   *
-   * @default 1000
-   */
-  wait?: number
-}
+type UseDebouncedFnOptions = DebounceOptions
 
 interface UseDebouncedFnActions {
   run: () => void
@@ -19,12 +13,8 @@ interface UseDebouncedFnActions {
   flush: () => void
 }
 
-const DEFAULT_WAIT = 1000
-const DEFAULT_LEADING = false
-const DEFAULT_TRAILING = true
-
 export function useDebouncedFn<T extends AnyFn>(fn: T, options?: UseDebouncedFnOptions) {
-  const { wait, leading, trailing, maxWait } = resolveOptions(options)
+  const { wait, leading, trailing, maxWait } = resolveDebounceOptions(options)
 
   const fnRef = useRef(fn)
 
@@ -45,13 +35,4 @@ export function useDebouncedFn<T extends AnyFn>(fn: T, options?: UseDebouncedFnO
   }, [])
 
   return actions
-}
-
-function resolveOptions(options?: UseDebouncedFnOptions): UseDebouncedFnOptions {
-  return {
-    wait: options?.wait ?? DEFAULT_WAIT,
-    leading: options?.leading ?? DEFAULT_LEADING,
-    trailing: options?.trailing ?? DEFAULT_TRAILING,
-    maxWait: options?.maxWait,
-  }
 }
