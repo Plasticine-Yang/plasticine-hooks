@@ -3,7 +3,7 @@ import { act, renderHook } from '@testing-library/react'
 import { sleep } from '../../../testingHelpers'
 import { useDebouncedFn } from '..'
 
-describe('useDebouncedFn', () => {
+describe('useThrottledFn', () => {
   jest.useFakeTimers()
 
   const setup = (
@@ -20,7 +20,7 @@ describe('useDebouncedFn', () => {
       }
     })
 
-  test('should be executed after specific milliseconds', async () => {
+  test('should be executed once when run multi times on continuous specific milliseconds', async () => {
     const fn = jest.fn()
 
     const { result } = setup(fn, { wait: 500 })
@@ -28,20 +28,32 @@ describe('useDebouncedFn', () => {
 
     await act(async () => {
       result.current.run()
-
-      await sleep(300)
-
-      result.current.run()
-      result.current.run()
-      result.current.run()
     })
     expect(fn).not.toHaveBeenCalled()
+    await sleep(500)
+    expect(fn).toHaveBeenCalledTimes(1)
 
     await act(async () => {
       result.current.run()
-      await sleep(600)
+      result.current.run()
+      result.current.run()
     })
     expect(fn).toHaveBeenCalledTimes(1)
+    await sleep(400)
+    expect(fn).toHaveBeenCalledTimes(1)
+    await sleep(100)
+    expect(fn).toHaveBeenCalledTimes(2)
+
+    await act(async () => {
+      result.current.run()
+      result.current.run()
+      result.current.run()
+    })
+    expect(fn).toHaveBeenCalledTimes(2)
+    await sleep(400)
+    expect(fn).toHaveBeenCalledTimes(2)
+    await sleep(100)
+    expect(fn).toHaveBeenCalledTimes(3)
   })
 
   test('should work when not pass any options', async () => {
@@ -52,8 +64,9 @@ describe('useDebouncedFn', () => {
 
     await act(async () => {
       result.current.run()
-      await sleep(1000)
     })
+    expect(fn).not.toHaveBeenCalled()
+    await sleep(1000)
     expect(fn).toHaveBeenCalledTimes(1)
   })
 
@@ -67,48 +80,40 @@ describe('useDebouncedFn', () => {
       result.current.run()
     })
     expect(fn).toHaveBeenCalledTimes(1)
+    await sleep(500)
+    expect(fn).toHaveBeenCalledTimes(1)
 
-    await act(async () => {
+    act(() => {
       result.current.run()
       result.current.run()
       result.current.run()
-      await sleep(600)
     })
     expect(fn).toHaveBeenCalledTimes(2)
-
-    await act(async () => {
-      result.current.run()
-      result.current.run()
-      result.current.run()
-      await sleep(500)
-      result.current.run()
-    })
-    expect(fn).toHaveBeenCalledTimes(5)
+    await sleep(500)
+    expect(fn).toHaveBeenCalledTimes(3)
   })
 
-  test('should be executed after maxWait milliseconds', async () => {
+  test('should be executed on trailing', async () => {
     const fn = jest.fn()
 
-    const { result } = setup(fn, { wait: 500, maxWait: 1000 })
+    const { result } = setup(fn, { wait: 500, trailing: true })
     expect(fn).not.toHaveBeenCalled()
 
-    await act(async () => {
+    act(() => {
       result.current.run()
-      await sleep(400)
     })
     expect(fn).not.toHaveBeenCalled()
+    await sleep(500)
+    expect(fn).toHaveBeenCalledTimes(1)
 
-    await act(async () => {
+    act(() => {
       result.current.run()
-      await sleep(400)
-    })
-    expect(fn).not.toHaveBeenCalled()
-
-    await act(async () => {
       result.current.run()
-      await sleep(400)
+      result.current.run()
     })
     expect(fn).toHaveBeenCalledTimes(1)
+    await sleep(500)
+    expect(fn).toHaveBeenCalledTimes(2)
   })
 
   test('should be canceled when cancel is called', async () => {
@@ -117,18 +122,21 @@ describe('useDebouncedFn', () => {
     const { result } = setup(fn, { wait: 500 })
     expect(fn).not.toHaveBeenCalled()
 
-    await act(async () => {
+    act(() => {
       result.current.run()
-      await sleep(400)
-      result.current.cancel()
-      await sleep(100)
+      result.current.run()
     })
     expect(fn).not.toHaveBeenCalled()
+    await sleep(500)
+    expect(fn).toHaveBeenCalledTimes(1)
 
-    await act(async () => {
+    act(() => {
       result.current.run()
-      await sleep(500)
+      result.current.run()
+      result.current.cancel()
     })
+    expect(fn).toHaveBeenCalledTimes(1)
+    await sleep(500)
     expect(fn).toHaveBeenCalledTimes(1)
   })
 
@@ -138,17 +146,21 @@ describe('useDebouncedFn', () => {
     const { result } = setup(fn, { wait: 500 })
     expect(fn).not.toHaveBeenCalled()
 
-    await act(async () => {
+    act(() => {
       result.current.run()
-      await sleep(400)
-      result.current.flush()
+      result.current.run()
     })
+    expect(fn).not.toHaveBeenCalled()
+    await sleep(500)
     expect(fn).toHaveBeenCalledTimes(1)
 
-    await act(async () => {
+    act(() => {
       result.current.run()
-      await sleep(500)
+      result.current.run()
+      result.current.flush()
     })
+    expect(fn).toHaveBeenCalledTimes(2)
+    await sleep(500)
     expect(fn).toHaveBeenCalledTimes(2)
   })
 })

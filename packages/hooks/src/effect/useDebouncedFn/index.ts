@@ -1,43 +1,34 @@
 import debounce from 'lodash/debounce'
 import { useMemo, useRef } from 'react'
 
-import { type DebounceOptions, resolveDebounceOptions } from '../../shared'
 import { useUnmount } from '../../lifeCycle'
-
-type AnyFn = (...args: any[]) => any
+import { resolveDebounceOptions, type DebounceOptions } from '../../shared'
+import type { AnyFn } from '../../types'
 
 type UseDebouncedFnOptions = DebounceOptions
 
-interface UseDebouncedFnActions<T> {
-  run: T
-  cancel: () => void
-  flush: () => void
-}
-
 export function useDebouncedFn<T extends AnyFn>(fn: T, options?: UseDebouncedFnOptions) {
-  const { wait, leading, trailing, maxWait } = resolveDebounceOptions(options)
+  const { wait, ...debounceOptions } = resolveDebounceOptions(options)
 
   const fnRef = useRef(fn)
 
-  const actions = useMemo<UseDebouncedFnActions<T>>(() => {
-    const debouncedFn = debounce(
+  const debouncedFn = useMemo(() => {
+    return debounce(
       (...args: Parameters<T>): ReturnType<T> => {
         return fnRef.current(...args)
       },
       wait,
-      { leading, maxWait, trailing },
+      debounceOptions,
     )
-
-    return {
-      run: debouncedFn as unknown as T,
-      cancel: debouncedFn.cancel,
-      flush: debouncedFn.flush,
-    }
   }, [])
 
   useUnmount(() => {
-    actions.cancel()
+    debouncedFn.cancel()
   })
 
-  return actions
+  return {
+    run: debouncedFn,
+    cancel: debouncedFn.cancel,
+    flush: debouncedFn.flush,
+  }
 }

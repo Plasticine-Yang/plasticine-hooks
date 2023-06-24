@@ -18,6 +18,6 @@ export function resolveDebounceOptions(options?: DebounceOptions): DebounceOptio
     wait: options?.wait ?? DEFAULT_WAIT,
     leading: options?.leading ?? DEFAULT_LEADING,
     trailing: options?.trailing ?? DEFAULT_TRAILING,
-    maxWait: options?.maxWait,
+    ...(options?.maxWait !== undefined ? { maxWait: options.maxWait } : null),
   }
 }
